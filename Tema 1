@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
+int CautLin(int nr, int v[20], int n)
+{
+	int i;
+	for (i = 0; i < nr; i++)
+		if (v[i] == n)
+			return i;
+	return -1;
+}
+int CautBin(int nr, int v[20], int n)
+{
+	int li = 0, ls = nr,mij;
+	while (li != ls)
+	{
+		mij = (li + ls) / 2;
+		    if (n == v[mij])
+			    return mij;
+		           if (n > v[mij])
+			         li = mij+1 ;
+		           else ls = mij;
+	}
+	return -1;
+}
+int main()
+{
+	int v[20], n,i,e,aux,mod;
+	
+	
+	printf("dati numarul de elemente");
+	scanf("%d", &n);
+	
+	
+	for (i = 0; i < n; i++)
+	{
+		printf("v[%d]=", i);
+		scanf("%d", &v[i]);
+	}
+
+
+	printf("elementul cautat este:");
+	scanf("%d", &e);
+
+
+	printf("Alegeti tipul de cautare dorit pentu liniar 1 pentru binar 2");
+	scanf("%d", &mod);
+	
+	
+	if (mod == 1)
+		{
+			
+			if (CautLin(n, v, e) != -1)
+			{
+				aux = CautLin(n, v, e);
+				printf("Variabila cautata este pe pozitia %d", aux);
+			}
+			else printf("Numarul cautat nu se afla in sir ");
+		}
+
+	else {
+		if (CautBin(n, v, e) != -1)
+		{
+			aux = CautBin(n, v, e);
+			printf("Variabila cautata este pe pozitia %d", aux);
+		}
+		else printf("Numarul cautat nu se afla in sir ");
+
+		}
+
+}
