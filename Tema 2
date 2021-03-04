@@ -1,0 +1,42 @@
+//Nu stiu din ce motiv cand rulez porgramul in visual studio in timp ce vectorul declarat este de tip unsinged char imi da o eroare in legatura cu valoarea 8 spunand ca e unsigned long
+
+
+#include<stdio.h>
+#include<stdlib.h>
+int setFlag(unsigned char n, int k)
+{
+	n = n | (1 << k);
+	return n;
+}
+
+int getFlag(unsigned char n, int k)
+{
+	if ((n&(1 << k)) == (1 << k))
+		return 1;
+}
+int main()
+{
+	unsigned char v[125];
+	int n,i;
+
+	for (i = 0; i<=125; i++)
+		v[i] = 0;
+	while(1)
+	{
+		printf("pentru iesire se va scrie orice element mai mare decat 1000");
+		scanf("%d", &n);
+		if (n > 1000)
+			break;
+		v[n/8]=setFlag(v[n / 8], n % 8);
+
+	}
+
+	for (i = 0; i <= 1000; i++)
+	{
+		if(getFlag(v[i/8],i%8))
+			printf("%d ",i);
+
+	}
+	return 0;
+
+}
