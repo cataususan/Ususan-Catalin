@@ -1,0 +1,235 @@
+//numarare de duminici
+//1 ianuarie zi de luni
+//an bisect o data la 4 ani
+//30 de zile au lunile Septembrie / Aprilie / Iunie / Noiembrie
+// Februarie are 28 de zile, 29 în an bisect, 
+//- Restul lunilor au 31 de zile
+
+
+//mod de rezolvare
+//zilele vor fi tratate in doua moduri "dumnica" sau nu
+//prima data se va vedea in ce zi ne aflam in prima data 
+//se va afla distanta de zile intre zilele date
+//se va imparti la 7/6 pentru a se afla numarul de zile
+
+#include<stdlib.h>
+#include<stdio.h>
+
+int main()
+{
+	int luna1, luna2, ziua1, ziua2, an1, an2, aux, v[13], zile, ok = 0, i, nrzile = 0,nr,nrduminici=0,nrzilel=0;
+	v[0] = 0; v[1] = 31; v[2] = 28; v[3] = 31; v[4] = 30; v[5] = 31; v[6] = 30; v[7] = 31; v[8] = 31; v[9] = 30; v[10] = 31; v[11] = 30; v[12] = 31;
+
+	scanf("%d", &ziua1); scanf("%d", &luna1); scanf("%d", &an1);
+
+	scanf("%d", &ziua2); scanf("%d", &luna2); scanf("%d", &an2);
+
+	if (an2 < an1)
+	{
+		aux = an2; an2 = an1; an1 = aux;
+
+		aux = ziua1; ziua1 = ziua2; ziua2 = aux;
+
+		aux = luna2; luna2 = luna1; luna1 = aux;
+	}
+	if (an2 == an1 && luna1 > luna2)
+	{
+		aux = an2; an2 = an1; an1 = aux;
+
+		aux = ziua1; ziua1 = ziua2; ziua2 = aux;
+
+		aux = luna2; luna2 = luna1; luna1 = aux;
+	}
+	if (an2 == an1 && luna2 == luna1 && ziua1 > ziua2)
+	{
+		aux = an2; an2 = an1; an1 = aux;
+
+		aux = ziua1; ziua1 = ziua2; ziua2 = aux;
+
+		aux = luna2; luna2 = luna1; luna1 = aux;
+	}
+
+	if (ziua1 > ziua2)
+	{
+		for (i = ziua1; i <= v[luna1]; i++)
+			nrzile = nrzile++;
+		luna1++;
+		for (i = 1; i <= ziua2; i++)
+			nrzile = nrzile++;
+	}
+	else for (i = ziua1; i <= ziua2; i++)
+		nrzile = nrzile + 1;
+
+
+
+	if (luna1 > luna2)
+	{
+		for (i = luna1; i <= 12; i++)
+		{
+			if (an1 % 4 == 0 && i == 2)
+				nrzile = nrzile + 29;
+			else
+				nrzile = nrzile + v[i];
+		}
+		an1++;
+		for (i = 1; i < luna2; i++)
+		{
+			if (an1 % 4 == 0 && i == 2)
+				nrzile = nrzile + 29;
+			else
+				nrzile = nrzile + v[i];
+		}
+	}
+	else
+		for (i = luna1; i < luna2; i++)
+		{
+			if (an2 % 4 == 0 && i == 2)
+				nrzile = nrzile + 29;
+			else nrzile = nrzile + v[i];
+		}
+
+	for (i = an1; i < an2; i++)
+	{
+		if (i % 4 == 0)
+			nrzile = nrzile + 366;
+		else nrzile = nrzile + 365;
+
+	}
+	nrzile--;
+	
+	printf("%d", nrzile);
+	
+	if (an1 >= 1900)
+	{
+		for (i = 1900; i < an1; i++)
+		{
+			if (i % 4 == 0)
+				nrzilel = nrzilel + 366;
+			else nrzilel = nrzilel + 365;
+
+		}
+		for (i = 1; i < luna1; i++)
+		{
+			if (an1 % 4 == 0 && i == 2)
+				nrzilel = nrzilel + 29;
+			else nrzilel = nrzilel + v[i];
+		}
+		for (i = 1; i <= ziua1; i++)
+			nrzilel = nrzilel + 1;
+		nrzilel = nrzilel - 2;
+		if (nrzilel % 7 == 0)
+		{
+			ok = 1;
+			printf("ziua1 este luni \n");
+
+		}
+		else {
+			printf("ziua1 nu este luni \n");
+			nrzile = nrzile - (7-nrzilel % 7);
+			if(nrzilel % 7 != 6)
+			nrduminici++;
+		}
+	}
+	
+
+
+	if (an1 < 1900)
+	{
+		if (luna1 < 12 && ziua1 != 1)
+		{
+			for (i = ziua1; i <= v[luna1]; i++)
+				nrzilel++;
+			luna1++;
+		}
+		if (luna1 != 1)
+		{
+			for (i = luna1; i <= 12; i++)
+				nrzilel = nrzilel + v[i];
+			an1++;
+		}
+		for (i = an1; i < 1900; i++)
+		{
+			if (i % 4 == 0)
+				nrzilel = nrzilel + 366;
+			else nrzilel = nrzilel + 365;
+		}
+		if (nrzilel % 7 == 0)
+			printf("ziua1 este luni \n");
+		else {
+			printf("ziua1 nu este luni \n");
+			nrzile = nrzile - (7 - nrzilel % 7);
+			if (nrzilel % 7 != 6)
+			nrduminici++;
+		}
+	}
+	nrzilel = 0;
+	if (an2 >= 1900)
+	{
+		for (i = 1900; i < an2; i++)
+		{
+			if (i % 4 == 0)
+				nrzilel = nrzilel + 366;
+			else nrzilel = nrzilel + 365;
+
+		}
+		for (i = 1; i < luna2; i++)
+		{
+			if (an2 % 4 == 0 && i == 2)
+				nrzilel = nrzilel + 29;
+			else nrzilel = nrzilel + v[i];
+		}
+		for (i = 1; i <= ziua2; i++)
+			nrzilel = nrzilel + 1;
+		nrzilel = nrzilel - 2;
+		if (nrzilel % 7 == 6)
+		{
+			ok = 1;
+			printf("ziua2 este duminica \n");
+
+		}
+		else {
+			printf("ziua2 nu este duminica \n");
+			nrzile = nrzile - (nrzilel % 7) - 1;
+			nrduminici++;
+		}
+	}
+	if (an2 < 1900)
+	{
+		if (luna2 < 12 && ziua2 != 1)
+		{
+			for (i = ziua2; i <= v[luna2]; i++)
+				nrzilel++;
+			luna2++;
+		}
+		if (luna2 != 1)
+		{
+			for (i = luna2; i <= 12; i++)
+				nrzilel = nrzilel + v[i];
+			an2++;
+		}
+		for (i = an2; i < 1900; i++)
+		{
+			if (i % 4 == 0)
+				nrzilel = nrzilel + 366;
+			else nrzilel = nrzilel + 365;
+		}
+		if (nrzilel % 7 == 6)
+		{
+			ok = 1;
+			printf("ziua2 este duminica \n");
+
+		}
+		else {
+			printf("ziua2 nu este duminica \n");
+			nrzile = nrzile - (nrzilel % 7) - 1;
+			nrduminici++;
+		}
+	}
+	
+	
+	nr = nrzile / 7+nrduminici;
+	printf("numar duminici %d \n", nr);
+
+
+
+}
