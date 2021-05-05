@@ -1,0 +1,35 @@
+#include<stdlib.h>
+#include<stdio.h>
+int main()
+{
+	int n,i,j,k,dist,m=0,aux;
+	scanf("%d", &n);
+	for (i = 0; i <  n; i++)
+	{
+		scanf("%d", &j);
+		scanf("%d", &k);
+		if (k < j)
+		{
+			aux = k;
+			k = j;
+			j = aux;
+		}
+		if (k - j > n)
+		{
+			dist = (n * 2) - k + j;
+			if (dist > m)
+				m = dist;
+		}
+		else
+		{
+			dist = k - j;
+			if (dist > m)
+				m = dist;
+		}
+
+		
+
+	}
+	printf("%d", m);
+
+}
