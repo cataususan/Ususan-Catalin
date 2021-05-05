@@ -1,0 +1,30 @@
+#include<stdlib.h>
+#include<stdio.h>
+int main()
+{
+	int n,i,j=0,v[100],a[100],k=0,aux;
+	
+	scanf("%d", &n);
+
+	aux = n;
+	while (aux != 0)
+	{
+		a[k] = aux % 10;
+		aux = aux / 10;
+		k++;
+	}
+	for (i = k-1; i >= 0; i--)
+		printf("%d", a[i]);
+	printf("\n");
+	while (n != 0)
+	{
+		i = n % 2;
+		n = n / 2;
+		j++;
+		v[j] = i;
+		
+	}
+	for (i = j; i > 0; i--)
+		printf("%d", v[i]);
+
+}
